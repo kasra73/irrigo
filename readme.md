@@ -66,6 +66,7 @@ app:
 
 pipeline:
   - "health-check"
+  - "rate-limit"
   - "simple-filter"
 
 filters:
@@ -81,8 +82,22 @@ filters:
     options:
       limit: 100
       window: 60
+    overrides:
+      logging:
+        level: DEBUG
+  
+  simple-filter:
+    use: my-app
+    type: built-in
+    options:
+      option1: option_value1
+      option2: option_value2
+    overrides:
+      logging:
+        level: WARN
       custom:
         custom_setting_1: override_value1
+
 ```
 
 ### Example `main.go`
